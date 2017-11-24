@@ -1,0 +1,52 @@
+Modules
+=======
+
+hello_world
+-----------
+
+Installs location content handler to produce specific output.
+
+- #1 produces the predefined output "Hello, world!"
+- #2 allows setting text and HTTP status code
+- #3 supports variables in output text
+
+access
+------
+
+Installs an ACCESS phase handler and checks if user is allowed to access the
+resource.
+
+- #1 makes sure the User-Agent header contains the specified string
+- #2 verifies user-provided hash md5(uri, secret).
+
+set_header
+----------
+
+Installs header filter handler and allows to add output headers.
+
+- #1 one header is supported
+- #2 multiple headers are supported
+- #3 variables are supported in header values
+
+append
+------
+
+Installs header and body filter handlers and allows appending text to the
+output.
+
+- #1 a string is appended
+- #2 md5 hash of the entire body is appended
+- #3 subrequest text is appended
+
+md5
+---
+
+Creates a variable with the md5 of the provided complex value.
+
+
+Development Guide
+=================
+
+For more information on module development, see the NGINX development guide:
+
+    http://nginx.org/en/docs/dev/development_guide.html
