@@ -154,10 +154,7 @@ ngx_http_append_body_filter(ngx_http_request_t *r, ngx_chain_t *in)
             last = 1;
         }
 
-        if (ngx_buf_in_memory(cl->buf)) {
-            ngx_md5_update(&ctx->md5, cl->buf->pos,
-                           cl->buf->last - cl->buf->pos);
-        }
+        ngx_md5_update(&ctx->md5, cl->buf->pos, cl->buf->last - cl->buf->pos);
     }
 
     rc = ngx_http_next_body_filter(r, in);
