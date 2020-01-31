@@ -1,0 +1,5 @@
+**/*.log
+**/*.pid
+.gdb_history
+**/nginx
+.DS_Store
