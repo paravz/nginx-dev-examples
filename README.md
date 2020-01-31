@@ -74,3 +74,7 @@ For more information on module development, see the NGINX development guide:
   Set a breakpoint in module's handler and make a request: `curl localhost:8000`
 
   Press "Shift F5" to stop nginx.
+
+- Sample debug session
+
+  ![Debugging Example](/vscode1.png?raw=true "Breakpoint in access_1 module")
