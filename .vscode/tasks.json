@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "initial: configure and build active module",
+            "label": "nginx: initial configure and build active module",
             "type": "shell",
             "command": "test -f ${relativeFileDirname}/nginx.conf && cd ${workspaceFolder}/nginx && auto/configure --prefix=r --with-debug --add-module=../${relativeFileDirname} && make -j$(nproc) && make install",
             "presentation": {
@@ -19,7 +19,7 @@
             ]
         },
         {
-            "label": "quick: module rebuild",
+            "label": "nginx: module rebuild (default)",
             "type": "shell",
             "command": "test -f ${relativeFileDirname}/nginx.conf && ${workspaceFolder}/nginx/r/sbin/nginx -c ${workspaceFolder}/${relativeFileDirname}/nginx.conf -s stop || true && cd ${workspaceFolder}/nginx && make -j$(nproc) && make install",
             "group": {

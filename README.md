@@ -43,38 +43,50 @@ For more information on module development, see the NGINX development guide:
 
     http://nginx.org/en/docs/dev/development_guide.html
 
-## VScode Development Environment on Linux with gcc
 
-- Clone nginx into "nginx" directory
+## NGINX Development and Debugging in VS Code
 
-  `git clone https://github.com/nginx/nginx` or  
+Learning NGINX modules is a lot easier in [VS Code](https://code.visualstudio.com/), use instructions below to setup your Linux C/C++ development environment.
+
+  ![NGINX VScode Debugging session](/vscode1.png?raw=true "Breakpoint in access_1 NGINX module")
+
+### Prepare
+
+- Download NGINX into *nginx* directory
+
+  `git clone https://github.com/nginx/nginx`
+
+  or
+
   `hg clone http://hg.nginx.org/nginx`
 
-- Install C/C++ IntelliSense
+- Install dependencies
 
-  Install [ms-vscode.cpptools](https://github.com/Microsoft/vscode-cpptools/releases) extension using GUI or `code --install-extension ms-vscode.cpptools`
+    - Install NGINX [build dependencies](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/#installing-nginx-dependencies) or use your package manager: `sudo dnf install -y pcre-devel zlib-devel openssl-devel`
 
-- Open this directory in VScode and start editing any module's source file
+    - Install [C/C++ IntelliSense extension](https://github.com/Microsoft/vscode-cpptools/releases) in VS Code GUI or run from terminal: `code --install-extension ms-vscode.cpptools`
 
-- Configure and build nginx binary with the currently edited module compiled in
+    - Install GDB: `sudo dnf install -y gdb`
 
-  Go to "Terminal > Run Task" and choose "initial: configure and build active module"
+- Open *access_1/ngx_http_ua_access_module.c* in VS Code
 
-  Alternatively press "Ctrl + p", type "task" and select "initial: configure and build active module"
+- Run initial NGINX build (one time)
 
-- Make an edit to module's source file and rebuild incrementally
-  Run default build task: "Ctrl + Shift + B", or choose "Terminal > Run Build Task..."
+    Navigate to "Terminal > Run Task" and choose `nginx: initial configure and build active module`
 
-  Build task stops nginx if it's running, use "Ctrl + Shift + B" to stop nginx.
+### Develop and Debug
 
-- Run and debug
+- Open *access_1/ngx_http_ua_access_module.c* to compile *access_1* module
 
-  Press "F5" to start nginx under gdb debugger.
+- Run default build task using: "Ctrl + Shift + B" or choose `Terminal > Run Build Task...`
 
-  Set a breakpoint in module's handler and make a request: `curl localhost:8000`
+    This task from *.vscode/tasks.json* builds NGINX with module that is currently active in editor and stops NGINX.
 
-  Press "Shift F5" to stop nginx.
+- Run and/or debug
 
-- Sample debug session
+    - Press "F5" to start nginx under GDB. GDB launch configration is defined in *.vscode/launch.json*
 
-  ![Debugging Example](/vscode1.png?raw=true "Breakpoint in access_1 module")
+    - Set a breakpoint in module's handler (ie *access_1/ngx_http_ua_access_module.c:76*) and make a request: `curl localhost:8000`
+        - See [VS Code debugging documentation](https://code.visualstudio.com/docs/cpp/cpp-debug) for more details
+
+    - Press "Shift F5" to stop debugging session.
